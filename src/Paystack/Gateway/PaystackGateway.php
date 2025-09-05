@@ -11,6 +11,7 @@ use Give\Framework\PaymentGateways\Commands\RedirectOffsite;
 use Give\Framework\PaymentGateways\Commands\PaymentComplete;
 use Give\Framework\PaymentGateways\Commands\PaymentRefunded;
 use Give\Framework\PaymentGateways\Exceptions\PaymentGatewayException;
+use Give\Framework\PaymentGateways\Log\PaymentGatewayLog;
 use Give\Framework\PaymentGateways\PaymentGateway;
 use Give\Framework\Support\Facades\Scripts\ScriptAsset;
 use Give\Log\Log;
@@ -26,6 +27,13 @@ class PaystackGateway extends PaymentGateway
      */
     public $secureRouteMethods = [
         'handlePaystackReturn',
+    ];
+
+    /**
+     * @var array
+     */
+    public $routeMethods = [
+        'webhookNotificationsListener',
     ];
 
     /**
@@ -418,5 +426,55 @@ class PaystackGateway extends PaymentGateway
         $transactionLink = '<a href="' . esc_url($url) . '" target="_blank">' . $gatewayTransactionId . '</a>';
 
         return apply_filters('give_paystack_link_payment_details_transaction_id', $transactionLink);
+    }
+
+    /**
+     * Webhook notifications listener.
+     *
+     * @see https://paystack.com/docs/payments/webhooks/#create-a-webhook-url
+     *
+     * @unreleased
+     * @return void
+     */
+    public function webhookNotificationsListener()
+    {
+        // only a post with paystack signature header gets our attention
+        if ((strtoupper($_SERVER['REQUEST_METHOD']) != 'POST') || !array_key_exists('HTTP_X_PAYSTACK_SIGNATURE', $_SERVER)) {
+            wp_die('Unauthorized request');
+        }
+
+        // Retrieve the request's body
+        $input = @file_get_contents("php://input");
+        $paystackSecretKey = $this->getSecretKey();
+
+        // validate event do all at once to avoid timing attack
+        if ($_SERVER['HTTP_X_PAYSTACK_SIGNATURE'] !== hash_hmac('sha512', $input, $paystackSecretKey)) {
+            wp_die('Unauthorized request');
+        }
+
+        http_response_code(200);
+
+        $request = json_decode($input);
+
+        do_action('givewp_paystack_webhook_notification', $request);
+
+        do_action("givewp_paystack_webhook_notification_$request->event", $request);
+
+        Log::http('Paystack webhook received', ['request' => $request]);
+
+        try {
+            switch ($request->event) {
+                case 'charge.success':
+                    $gatewayTransactionId = $request->data->id;
+
+                    $this->webhook()->events->donationCompleted($gatewayTransactionId);
+
+                    break;
+            }
+        } catch (\Exception $e) {
+            PaymentGatewayLog::error('Paystack webhook error', ['error' => $e->getMessage()]);
+        }
+
+        exit();
     }
 }
