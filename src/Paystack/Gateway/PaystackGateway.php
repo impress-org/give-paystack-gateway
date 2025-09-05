@@ -8,8 +8,8 @@ use Give\Donations\ValueObjects\DonationStatus;
 use Give\Framework\Http\Response\Types\RedirectResponse;
 use Give\Framework\PaymentGateways\Commands\GatewayCommand;
 use Give\Framework\PaymentGateways\Commands\RedirectOffsite;
-use Give\Framework\PaymentGateways\Commands\PaymentComplete;
 use Give\Framework\PaymentGateways\Commands\PaymentRefunded;
+use Give\Framework\PaymentGateways\Contracts\WebhookNotificationsListener;
 use Give\Framework\PaymentGateways\Exceptions\PaymentGatewayException;
 use Give\Framework\PaymentGateways\Log\PaymentGatewayLog;
 use Give\Framework\PaymentGateways\PaymentGateway;
@@ -20,7 +20,7 @@ use GivePaystack\Paystack\Gateway\DataTransferObjects\InitializeTransactionRespo
 /**
  * @since 3.0.0
  */
-class PaystackGateway extends PaymentGateway
+class PaystackGateway extends PaymentGateway implements WebhookNotificationsListener
 {
     /**
      * @var array
