@@ -5,8 +5,7 @@ namespace GivePaystack\Addon;
 /**
  * Helper class responsible for showing add-on notices.
  *
- * @package     GiveAddon\Addon\Helpers
- * @copyright   Copyright (c) 2020, GiveWP
+ * @since 3.0.0
  */
 class Notices
 {

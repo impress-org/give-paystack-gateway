@@ -4,9 +4,6 @@ namespace GivePaystack\Addon;
 
 /**
  * Example of a helper class responsible for registering and handling add-on activation hooks.
- *
- * @package     GivePaystack\Addon
- * @copyright   Copyright (c) 2020, GiveWP
  */
 class Activation
 {

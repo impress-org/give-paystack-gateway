@@ -345,7 +345,6 @@ class PaystackGateway extends PaymentGateway
         }
 
         try {
-            //TODO: handle on webhook
             $response = $this->verifyPaystackTransaction($reference);
 
             if (!isset($response['status']) || $response['status'] !== 'success') {

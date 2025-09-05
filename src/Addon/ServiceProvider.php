@@ -13,8 +13,7 @@ use Give\ServiceProviders\ServiceProvider as ServiceProviderInterface;
 /**
  * Example of a service provider responsible for add-on initialization.
  *
- * @package     GivePaystack\Addon
- * @copyright   Copyright (c) 2020, GiveWP
+ * @since 3.0.0
  */
 class ServiceProvider implements ServiceProviderInterface
 {

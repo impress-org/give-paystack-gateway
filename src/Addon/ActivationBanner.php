@@ -7,9 +7,7 @@ use GivePaystack\Settings\PaystackSettings;
 
 /**
  * Helper class responsible for showing add-on Activation Banner.
- *
- * @package     GivePaystack\Addon\Helpers
- * @copyright   Copyright (c) 2020, GiveWP
+ * @since 3.0.0
  */
 class ActivationBanner
 {

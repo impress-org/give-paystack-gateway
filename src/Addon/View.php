@@ -7,8 +7,7 @@ use InvalidArgumentException;
 /**
  * Helper class responsible for loading add-on views.
  *
- * @package     GivePaystack\Addon\Helpers
- * @copyright   Copyright (c) 2020, GiveWP
+ * @since 3.0.0
  */
 class View
 {

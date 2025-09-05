@@ -2,12 +2,20 @@
 
 namespace GivePaystack\Paystack\Gateway\DataTransferObjects;
 
+/**
+ * @since 3.0.0
+ */
 class InitializeTransactionResponse
 {
     public string $authorizationUrl;
+
     public string $reference;
+
     public string $accessCode;
 
+    /**
+     * @since 3.0.0
+     */
     public function __construct(array $data)
     {
         $this->authorizationUrl = $data['authorization_url'];
@@ -18,10 +26,9 @@ class InitializeTransactionResponse
     /**
      * Create a new InitializeTransactionResponse from an array
      *
-     * @param array $data
-     * @return self
+     * @since 3.0.0
      */
-    public static function fromArray(array $data)
+    public static function fromArray(array $data): self
     {
         return new self([
             'authorization_url' => $data['authorization_url'],

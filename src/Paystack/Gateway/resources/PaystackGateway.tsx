@@ -9,9 +9,6 @@ const paystackGateway = {
         paystackPublicKey = this.settings.publicKey;
     },
     async beforeCreatePayment(values: any) {
-        console.log('beforeCreatePayment: ', values);
-        // Return any data needed for the backend to initialize the transaction
-        // This will be sent to your PHP gateway's createPayment method
         return {
             ...values,
         };
@@ -37,4 +34,5 @@ const paystackGateway = {
     },
 };
 
+//@ts-ignore
 window.givewp.gateways.register(paystackGateway);
