@@ -20,7 +20,7 @@ class Notices
     {
         Give()->notices->register_notice(
             [
-                'id' => 'ADDON_ID-activation-error',
+                'id' => 'give-paystack-gateway-activation-error',
                 'type' => 'error',
                 'description' => View::load('admin/notices/give-version-error'),
                 'show' => true,

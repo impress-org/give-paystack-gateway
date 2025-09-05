@@ -14,7 +14,7 @@ class View
     /**
      * Default add-on domain
      */
-    const DEFAULT_DOMAIN = 'Paystack';
+    const DEFAULT_DOMAIN = 'Addon';
 
     /**
      * @since 3.0.0
@@ -36,7 +36,7 @@ class View
     {
         // Get domain and file path
         list ($domain, $file) = static::getPaths($view);
-        $template = ADDON_CONSTANT_DIR . "src/{$domain}/resources/views/{$file}.php";
+        $template = GIVE_PAYSTACK_DIR . "src/{$domain}/resources/views/{$file}.php";
 
         if ( ! file_exists($template)) {
             throw new InvalidArgumentException("View template file {$template} does not exist");
