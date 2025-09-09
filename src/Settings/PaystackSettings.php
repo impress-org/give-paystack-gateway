@@ -123,7 +123,6 @@ class PaystackSettings
      * Add the Paystack webhook field.
      *
      * This was forked from Stripe's webhook field.
-    /**
      * Render the Paystack webhook field in the settings.
      *
      * @param array $value
