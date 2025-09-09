@@ -227,7 +227,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
      */
     private function initializePaystackTransaction(Donation $donation, array $gatewayData): InitializeTransactionResponse
     {
-        $email = $donation->donor->email;
+        $email = $donation->email;
         $currency = $donation->amount->getCurrency()->getCode();
         $reference = $donation->purchaseKey;
         $paystackSecretKey = $this->getSecretKey();
