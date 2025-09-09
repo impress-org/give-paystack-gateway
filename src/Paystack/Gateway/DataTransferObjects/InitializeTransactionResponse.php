@@ -18,9 +18,9 @@ class InitializeTransactionResponse
      */
     public function __construct(array $data)
     {
-        $this->authorizationUrl = $data['authorization_url'];
-        $this->reference = $data['reference'];
-        $this->accessCode = $data['access_code'];
+        $this->authorizationUrl = $data['authorization_url'] ?? '';
+        $this->reference = $data['reference'] ?? '';
+        $this->accessCode = $data['access_code'] ?? '';
     }
 
     /**
@@ -31,9 +31,9 @@ class InitializeTransactionResponse
     public static function fromArray(array $data): self
     {
         return new self([
-            'authorization_url' => $data['authorization_url'],
-            'reference' => $data['reference'],
-            'access_code' => $data['access_code'],
+            'authorization_url' => $data['authorization_url'] ?? '',
+            'reference' => $data['reference'] ?? '',
+            'access_code' => $data['access_code'] ?? '',
         ]);
     }
 }
