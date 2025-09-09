@@ -137,7 +137,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
         try {
             $response = $this->refundPaystackTransaction($reference);
 
-            if (!isset($response['status'])) {
+            if (!isset($response['status']) || $response['status'] !== 'success') {
                 Log::error('Unable to refund Paystack transaction details.', [
                     'reference' => $reference,
                     'data' => $response,
