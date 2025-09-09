@@ -98,19 +98,6 @@ class ServiceProvider implements ServiceProviderInterface
                 ];
             }
 
-            if (!array_key_exists('GHS', $currencies)) {
-                $currencies['GHS'] = [
-                    'admin_label' => sprintf(__('Ghana Cedis (%1$s)', 'give'), 'GHS'),
-                    'symbol' => 'GHS;',
-                    'setting' => [
-                        'currency_position' => 'before',
-                        'thousands_separator' => '.',
-                        'decimal_separator' => ',',
-                        'number_decimals' => 2,
-                    ],
-                ];
-            }
-
             if (!array_key_exists('ZAR', $currencies)) {
                 $currencies['ZAR'] = [
                     'admin_label' => sprintf(__('South African Rands (%1$s)', 'give'), 'ZAR'),
