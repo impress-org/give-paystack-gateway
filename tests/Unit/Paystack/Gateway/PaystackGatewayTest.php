@@ -106,7 +106,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
             if (strpos($url, 'paystack.co') !== false) {
@@ -161,7 +161,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
             if (strpos($url, 'paystack.co') !== false) {
@@ -210,7 +210,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
         give_update_payment_meta($donation->id, '_give_paystack_reference', 'test_reference');
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
@@ -266,7 +266,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
         give_update_payment_meta($donation->id, '_give_paystack_reference', 'test_reference');
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
@@ -318,7 +318,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
         give_update_payment_meta($donation->id, '_give_paystack_reference', 'test_reference');
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
@@ -375,7 +375,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        update_option('paystack_test_secret_key', 'test_secret_key');
         give_update_payment_meta($donation->id, '_give_paystack_reference', 'test_reference');
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
@@ -433,7 +433,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
         // Note: No _give_paystack_reference meta is set
 
         $this->expectException(PaymentGatewayException::class);
@@ -470,7 +470,7 @@ class PaystackGatewayTest extends TestCase
             'type' => DonationType::SINGLE(),
         ]);
 
-        update_option('paystack_secret_key', 'test_secret_key');
+        $this->updatePaystackSecretKey();
         give_update_payment_meta($donation->id, '_give_paystack_reference', 'test_reference');
 
         add_filter('pre_http_request', function ($preempt, $args, $url) {
@@ -503,5 +503,13 @@ class PaystackGatewayTest extends TestCase
 
             throw $exception; // Re-throw to satisfy expectException
         }
+    }
+
+    /**
+     * @since 3.0.0
+     */
+    public function updatePaystackSecretKey()
+    {
+        update_option('paystack_test_secret_key', 'test_secret_key');
     }
 }
