@@ -1,13 +1,8 @@
 import { __ } from '@wordpress/i18n';
 import logo from './images/logo.png';
 
-let paystackPublicKey: string;
-
 const paystackGateway = {
     id: 'paystack',
-    initialize() {
-        paystackPublicKey = this.settings.publicKey;
-    },
     async beforeCreatePayment(values: any) {
         return {
             ...values,

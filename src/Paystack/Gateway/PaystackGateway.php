@@ -194,20 +194,9 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
     public function formSettings(int $formId): array
     {
         return [
-            'publicKey' => $this->getPublicKey(),
             'testMode' => give_is_test_mode(),
             'formId' => $formId,
         ];
-    }
-
-    /**
-     * Get the public key
-     *
-     * @since 3.0.0
-     */
-    public function getPublicKey(): string
-    {
-        return give_is_test_mode() ? give_get_option('paystack_test_public_key') : give_get_option('paystack_live_public_key');
     }
 
     /**
@@ -231,6 +220,10 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
         $currency = $donation->amount->getCurrency()->getCode();
         $reference = $donation->purchaseKey;
         $paystackSecretKey = $this->getSecretKey();
+
+        if (empty($paystackSecretKey)) {
+            throw new PaymentGatewayException(__('Paystack API key is not configured', 'give-paystack'));
+        }
 
         $redirectUrl = $this->generateSecureGatewayRouteUrl(
             'handlePaystackReturn',
