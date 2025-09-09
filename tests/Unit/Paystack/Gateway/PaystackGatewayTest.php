@@ -3,15 +3,12 @@
 namespace GivePaystack\Tests\Unit\Paystack\Gateway;
 
 use Give\Donations\Models\Donation;
-use Give\Donations\Models\DonationNote;
 use Give\Donations\ValueObjects\DonationStatus;
-use Give\Framework\PaymentGateways\Commands\GatewayCommand;
 use Give\Framework\PaymentGateways\Commands\RedirectOffsite;
 use Give\Framework\PaymentGateways\Exceptions\PaymentGatewayException;
 use Give\Tests\TestCase;
 use GivePaystack\Paystack\Gateway\PaystackGateway;
 use Give\Tests\TestTraits\RefreshDatabase;
-use Give\Framework\PaymentGateways\Commands\PaymentComplete;
 use Give\Framework\PaymentGateways\Commands\PaymentRefunded;
 use Give\Framework\Support\ValueObjects\Money;
 use Give\Donations\ValueObjects\DonationType;
