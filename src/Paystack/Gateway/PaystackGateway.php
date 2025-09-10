@@ -348,14 +348,8 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
         try {
             $response = $this->verifyPaystackTransaction($reference);
 
-            if (!isset($response['status']) || $response['status'] !== 'success') {
-                throw new PaymentGatewayException(
-                    __('Unable to verify Paystack transaction.', 'give-paystack'),
-                );
-            }
-
             $donation->gatewayTransactionId = (string)give_clean($response['id']);
-            $donation->status = DonationStatus::COMPLETE();
+            $donation->status = $this->getDonationStatusFromPaystackTransactionStatus($response['status']);
             $donation->save();
 
             return new RedirectResponse(esc_url_raw($successUrl));
@@ -471,5 +465,26 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
         }
 
         exit();
+    }
+
+    /**
+     * @unreleased
+     *
+     * @see https://paystack.com/docs/payments/verify-payments/#transaction-statuses
+     */
+    protected function getDonationStatusFromPaystackTransactionStatus(string $status): DonationStatus
+    {
+        switch ($status) {
+            case 'abandoned':
+                return DonationStatus::ABANDONED();
+            case 'failed':
+                return DonationStatus::FAILED();
+            case 'reversed':
+                return DonationStatus::REFUNDED();
+            case 'success':
+                return DonationStatus::COMPLETE();
+            default:
+                return DonationStatus::PROCESSING();
+        }
     }
 }
