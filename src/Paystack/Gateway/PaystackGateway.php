@@ -445,9 +445,9 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
 
         give_update_option('givewp_paystack_last_webhook_received_timestamp', time());
 
-        do_action('givewp_paystack_webhook_notification', $request);
+        do_action('givewp_paystack_webhook_notification', $request, $this);
 
-        do_action("givewp_paystack_webhook_notification_$request->event", $request);
+        do_action("givewp_paystack_webhook_notification_$request->event", $request, $this);
 
         Log::http('Paystack webhook received', ['request' => $request]);
 
