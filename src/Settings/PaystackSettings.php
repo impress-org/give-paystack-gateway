@@ -2,6 +2,7 @@
 
 namespace GivePaystack\Settings;
 
+use Give\FeatureFlags\OptionBasedFormEditor\OptionBasedFormEditor;
 use GivePaystack\Paystack\Gateway\PaystackGateway;
 
 /**
@@ -91,17 +92,19 @@ class PaystackSettings
             'type' => 'password',
         ];
 
-        $settings[] = [
-            'name'    => esc_html__('Billing Details', 'give-paystack'),
-            'desc'    => esc_html__('This will enable you to collect donor details. This is not required by Paystack (except email) but you might need to collect all information for record purposes', 'give-paystack'),
-            'id'      => 'paystack_billing_details',
-            'type'    => 'radio_inline',
-            'options' => [
-                'enabled'  => esc_html__('Enabled', 'give-paystack'),
-                'disabled' => esc_html__('Disabled', 'give-paystack'),
-            ],
-            'default' => 'disabled',
-        ];
+        if (OptionBasedFormEditor::isEnabled()) {
+            $settings[] = [
+                'name'    => esc_html__('Billing Details', 'give-paystack'),
+                'desc'    => esc_html__('This will enable you to collect donor details. This is not required by Paystack (except email) but you might need to collect all information for record purposes.  Note: this settings is specific to option-based donation forms.  Donation Forms using the visual form builder can simply use the billing address block to collect this information.', 'give-paystack'),
+                'id'      => 'paystack_billing_details',
+                'type'    => 'radio_inline',
+                'options' => [
+                    'enabled'  => esc_html__('Enabled', 'give-paystack'),
+                    'disabled' => esc_html__('Disabled', 'give-paystack'),
+                ],
+                'default' => 'disabled',
+            ];
+        }
 
         $settings[] = [
             'id'   => 'give_title_paystack_settings',

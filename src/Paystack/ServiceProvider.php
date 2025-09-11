@@ -38,6 +38,8 @@ class ServiceProvider implements ServiceProviderInterface
         // Register African currencies
         $this->registerCurrencies();
 
+        $this->registerV2FormBillingAddressFields();
+
     }
 
     /**
@@ -152,5 +154,26 @@ class ServiceProvider implements ServiceProviderInterface
 
             return $currencies;
         }, 10, 1);
+    }
+
+    /**
+     * Register V2 form billing address fields (backwards compatibility)
+     *
+     * @since 3.0.0
+     */
+    private function registerV2FormBillingAddressFields()
+    {
+        add_action('give_paystack_cc_form', function ($form_id, $echo = true) {
+            $billing_fields_enabled = give_get_option('paystack_billing_details');
+
+            if ($billing_fields_enabled == 'enabled') {
+                do_action('give_after_cc_fields');
+            } else {
+                //Remove Address Fields if user has option enabled
+                remove_action('give_after_cc_fields', 'give_default_cc_address_fields');
+            }
+
+            return $form_id;
+        }, 10, 2);
     }
 }
