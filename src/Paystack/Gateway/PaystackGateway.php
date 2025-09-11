@@ -15,7 +15,10 @@ use Give\Framework\PaymentGateways\Log\PaymentGatewayLog;
 use Give\Framework\PaymentGateways\PaymentGateway;
 use Give\Framework\Support\Facades\Scripts\ScriptAsset;
 use Give\Log\Log;
+use GivePaystack\Paystack\Gateway\Actions\ProcessWebhookNotifications;
 use GivePaystack\Paystack\Gateway\DataTransferObjects\InitializeTransactionResponse;
+
+use const GIVE_PAYSTACK_URL;
 
 /**
  * @since 3.0.0
@@ -137,10 +140,20 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
         try {
             $response = $this->refundPaystackTransaction($reference);
 
-            if (!isset($response['status']) || $response['status'] !== 'success') {
+            $refundSuccessStatuses = [
+                //Refund initiated, waiting for response from the processor
+                'pending',
+                //Refund has been received by the processor.
+                'processing',
+                //Refund has successfully been processed by the processor.
+                'processed',
+            ];
+
+            if (!isset($response['status']) || !in_array($response['status'], $refundSuccessStatuses)) {
                 Log::error('Unable to refund Paystack transaction details.', [
                     'reference' => $reference,
                     'data' => $response,
+                    'status' => $response['status'],
                 ]);
 
                 throw new PaymentGatewayException(
@@ -151,8 +164,9 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
             DonationNote::create([
                 'donationId' => $donation->id,
                 'content' => sprintf(
-                    __('Donation refunded in Paystack for transaction ID: %s', 'give-paystack'),
-                    $donation->gatewayTransactionId
+                    __('Donation refunded in Paystack for transaction ID: %s.  Paystack refund status: %s', 'give-paystack'),
+                    $donation->gatewayTransactionId,
+                    $response['status']
                 ),
             ]);
 
@@ -419,6 +433,8 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
      * Webhook notifications listener.
      *
      * @see https://paystack.com/docs/payments/webhooks/#create-a-webhook-url
+     * @see https://paystack.com/docs/payments/webhooks/#types-of-events
+     * @see https://paystack.com/docs/payments/refunds/#listen-to-notifications
      *
      * @unreleased
      * @return void
@@ -452,14 +468,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
         Log::http('Paystack webhook received', ['request' => $request]);
 
         try {
-            switch ($request->event) {
-                case 'charge.success':
-                    $gatewayTransactionId = $request->data->id;
-
-                    $this->webhook()->events->donationCompleted($gatewayTransactionId);
-
-                    break;
-            }
+            (new ProcessWebhookNotifications())($request, $this);
         } catch (\Exception $e) {
             PaymentGatewayLog::error('Paystack webhook error', ['error' => $e->getMessage()]);
         }
