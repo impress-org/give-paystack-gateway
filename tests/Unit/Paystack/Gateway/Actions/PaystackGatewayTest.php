@@ -216,7 +216,7 @@ class PaystackGatewayTest extends TestCase
                     'body' => json_encode([
                         'status' => true,
                         'data' => [
-                            'status' => 'success',
+                            'status' => 'processed',
                             'id' => 'paystack_transaction_id_123',
                         ],
                     ]),
@@ -324,7 +324,7 @@ class PaystackGatewayTest extends TestCase
                     'body' => json_encode([
                         'status' => true,
                         'data' => [
-                            'status' => 'success',
+                            'status' => 'processed',
                             'id' => 'refund_123',
                         ],
                     ]),
@@ -338,9 +338,9 @@ class PaystackGatewayTest extends TestCase
         $this->assertInstanceOf(PaymentRefunded::class, $result);
 
         // Verify that a donation note was created
-        $notes = give_get_payment_notes($donation->id);
+        $notes = $donation->notes;
         $refundNote = array_filter($notes, function($note) {
-            return strpos($note->comment_content, 'Donation refunded in Paystack') !== false;
+            return strpos($note->content, 'Donation refunded in Paystack') !== false;
         });
         $this->assertNotEmpty($refundNote);
     }
@@ -393,9 +393,9 @@ class PaystackGatewayTest extends TestCase
             $this->gateway->refundDonation($donation);
         } catch (PaymentGatewayException $exception) {
             // Verify that an error note was created
-            $notes = give_get_payment_notes($donation->id);
+            $notes = $donation->notes;
             $errorNote = array_filter($notes, function($note) use ($donation) {
-                return strpos($note->comment_content, 'Error! Donation ' . $donation->id . ' was NOT refunded') !== false;
+                return strpos($note->content, 'Error! Donation ' . $donation->id . ' was NOT refunded') !== false;
             });
             $this->assertNotEmpty($errorNote);
 
@@ -492,9 +492,9 @@ class PaystackGatewayTest extends TestCase
             $this->gateway->refundDonation($donation);
         } catch (PaymentGatewayException $exception) {
             // Verify that an error note was created
-            $notes = give_get_payment_notes($donation->id);
+            $notes = $donation->notes;
             $errorNote = array_filter($notes, function($note) use ($donation) {
-                return strpos($note->comment_content, 'Error! Donation ' . $donation->id . ' was NOT refunded') !== false;
+                return strpos($note->content, 'Error! Donation ' . $donation->id . ' was NOT refunded') !== false;
             });
             $this->assertNotEmpty($errorNote);
 
