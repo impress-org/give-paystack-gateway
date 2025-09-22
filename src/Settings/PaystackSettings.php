@@ -173,7 +173,7 @@ class PaystackSettings
                         printf(
                             /* translators: 1. Documentation on webhook setup. */
                             __('See our <a href="%1$s" target="_blank">documentation</a> for more information.', 'give'),
-                            esc_url('http://docs.givewp.com/paystack-webhooks')
+                            esc_url('https://docs.givewp.com/paystack-webhooks')
                         );
                         ?>
                     </p>

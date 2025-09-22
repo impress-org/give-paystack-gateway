@@ -31,7 +31,7 @@ class ActivationBanner
             'name' => GIVE_PAYSTACK_NAME,
             'version' => GIVE_PAYSTACK_VERSION,
             'settings_url' => PaystackSettings::getSettingsUrl(),
-            'documentation_url' => 'https://givewp.com/documentation/add-ons/paystack-gateway/',
+            'documentation_url' => 'https://docs.givewp.com/paystack-doc',
             'support_url' => 'https://givewp.com/support/',
             'testing' => false, // Never leave true.
         ];

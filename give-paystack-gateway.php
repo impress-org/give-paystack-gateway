@@ -9,7 +9,7 @@ use GivePaystack\Paystack\ServiceProvider as PaystackServiceProvider;
 
 /**
  * Plugin Name:         Give - Paystack Gateway
- * Plugin URI:          https://givewp.com/addons/paystack/
+ * Plugin URI:          https://docs.givewp.com/paystack-add-on
  * Description:         Fundraise with Paystack and GiveWP
  * Version:             3.0.0
  * Requires at least:   6.6
