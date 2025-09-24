@@ -8,13 +8,13 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @unreleased
+ * @since 3.0.0
  */
 
 class TestProcessWebhookNotifications extends TestCase
 {
     /**
-     * @unreleased
+     * @since 3.0.0
      */
     public function testChargeSuccessTriggersDonationCompleted()
     {
@@ -36,7 +36,7 @@ class TestProcessWebhookNotifications extends TestCase
     }
 
     /**
-     * @unreleased
+     * @since 3.0.0
      */
     public function testRefundPendingTriggersDonationRefunded()
     {
@@ -67,7 +67,7 @@ class TestProcessWebhookNotifications extends TestCase
     }
 
     /**
-     * @unreleased
+     * @since 3.0.0
      */
     public function testRefundProcessingTriggersDonationRefunded()
     {
@@ -98,7 +98,7 @@ class TestProcessWebhookNotifications extends TestCase
     }
 
     /**
-     * @unreleased
+     * @since 3.0.0
      */
     public function testRefundProcessedTriggersDonationRefunded()
     {
@@ -129,7 +129,7 @@ class TestProcessWebhookNotifications extends TestCase
     }
 
     /**
-     * @unreleased
+     * @since 3.0.0
      */
     public function testNoEventDoesNothing()
     {

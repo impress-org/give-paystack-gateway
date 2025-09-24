@@ -436,7 +436,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
      * @see https://paystack.com/docs/payments/webhooks/#types-of-events
      * @see https://paystack.com/docs/payments/refunds/#listen-to-notifications
      *
-     * @unreleased
+     * @since 3.0.0
      * @return void
      */
     public function webhookNotificationsListener()
@@ -477,7 +477,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
     }
 
     /**
-     * @unreleased
+     * @since 3.0.0
      *
      * @see https://paystack.com/docs/payments/verify-payments/#transaction-statuses
      */

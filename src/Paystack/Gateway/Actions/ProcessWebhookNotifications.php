@@ -8,7 +8,7 @@ use Exception;
 class ProcessWebhookNotifications
 {
     /**
-     * @unreleased
+     * @since 3.0.0
      *
      * @see https://paystack.com/docs/payments/webhooks/#types-of-events
      * @throws Exception
