@@ -117,8 +117,8 @@ You can report security bugs through the Patchstack Vulnerability Disclosure Pro
 
 == Changelog ==
 
-= 3.0.0 =
+= 3.0.0: October 1st, 2025 =
 * New: The Paystack team has partnered with GiveWP to hand over ownership of this plugin in order to provide maintenance and support!
-* New: Paystack is now compatible with the latest version of GiveWP (4.0+) and can be used with campaigns, option-based forms and the visual form builder.
+* New: Paystack is now compatible with the latest version of GiveWP (4.10.0+) and can be used with campaigns, option-based forms and the visual form builder.
 
 
