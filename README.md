@@ -1,39 +1,96 @@
-<p align="center"><a href="https://paystack.com/"><img src="https://raw.githubusercontent.com/PaystackHQ/wordpress-payment-forms-for-paystack/master/icon.png" alt="Paystack Payment for Give"></a></p>
+# Give - Paystack Gateway
 
-# Paystack Payment for Give
+Accept donations through Paystack payment gateway with GiveWP.
 
-Welcome to the Paystack Payment for Give repository on GitHub. Here you can browse the source, look at open issues and keep track of development. 
+## Description
 
-If you are a developer, you can join our Developer Community on [Slack](https://slack.paystack.com).
+The Give - Paystack Gateway plugin integrates the popular Paystack payment processor with GiveWP, allowing you to accept donations from supporters across Africa and beyond. Paystack provides a secure, reliable payment infrastructure that supports multiple payment methods including cards, bank transfers, and mobile money.
+
+## Features
+
+- **Secure Payments**: Accept donations through Paystack's secure payment infrastructure
+- **Multiple Payment Methods**: Support for cards, bank transfers, and mobile money
+- **Seamless Integration**: Works perfectly with GiveWP's donation forms
+- **Modern Interface**: Built with React and TypeScript for a smooth user experience
+- **Recurring Donations**: Support for recurring donation plans (if supported by your Paystack account)
+- **Transaction Management**: View and manage donations directly from your WordPress dashboard
+
+## Requirements
+
+- WordPress 6.5 or higher
+- PHP 7.4 or higher
+- GiveWP 4.0.0 or higher
+- Active Paystack account
 
 ## Installation
 
-Install the [Paystack Payment for Give](https://wordpress.org/plugins/paystack-for-give/) via the Plugins section of your WordPress Dashboard.
+1. Upload the plugin files to the `/wp-content/plugins/give-paystack` directory, or install the plugin through the WordPress plugins screen directly
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Navigate to **Donations > Settings > Payment Gateways > Paystack** to configure the gateway
+4. Enter your Paystack API keys (available from your Paystack dashboard)
+5. Configure your gateway settings and save
 
+## Configuration
 
-## Running the paystack Give plugin on docker
-Contained within this repo, is a dockerfile and a docker-compose file to quickly spin up a wordpress and mysql container with the paystack Give plugin installed.
+### API Keys
 
-### Prerequisites
-- Install [Docker](https://www.docker.com/)
+You'll need to obtain your API keys from your Paystack dashboard:
 
-### Quick Steps
-- Create a `local.env` file off the `local.env.sample` in the root directory. Replace the `*******` with the right values
-- Run `docker-compose up` from the root directory to build and start the mysql and wordpress containers.
-- Visit `localhost:8000` on your browser to access and setup wordpress.
-- Run `docker-compose down` from the root directory to stop the containers.
+1. Log in to your [Paystack Dashboard](https://dashboard.paystack.com/)
+2. Navigate to **Settings > API Keys & Webhooks**
+3. Copy your **Public Key** and **Secret Key**
+4. In WordPress, go to **Donations > Settings > Payment Gateways > Paystack**
+5. Enter your API keys in the respective fields
 
+### Test Mode
 
-## Documentation
-* [Paystack Documentation](https://developers.paystack.co/v1.0/docs/)
-* [Paystack Helpdesk](https://paystack.com/help)
+For testing purposes, you can enable Test Mode in the gateway settings. This allows you to process test transactions without affecting real payments.
+
+## Development
+
+### Getting Set Up
+
+1. Clone this repository locally
+2. Run `composer install` from the CLI
+3. Run `npm install` from the CLI
+
+### Asset Compilation
+
+To compile your CSS & JS assets, run one of the following:
+
+- `npm run dev` — Compiles all assets for development one time
+- `npm run watch` — Compiles all assets for development and watches for changes
+- `npm run build` — Compiles all assets for production
+
+### Testing
+
+Run the test suite:
+
+```bash
+composer test
+```
 
 ## Support
-This repository is not suitable for general Paystack support. Please use the issue tracker for bug reports and feature requests directly related to this plugin. For general support, you can reach out by 
 
-* sending a message from [our website](https://paystack.com/contact).
-* posting an issues on the plugin [support forum](https://wordpress.org/support/plugin/paystack-for-give).
+For support with this gateway, please:
 
-## Contributing to Paystack Payment for Give
+1. Check the [GiveWP Documentation](https://givewp.com/documentation/)
+2. Visit the [GiveWP Support Forum](https://wordpress.org/support/plugin/give/)
+3. Contact [GiveWP Support](https://givewp.com/support/) if you have an active license
 
-If you have a patch or have stumbled upon an issue with the Paystack Gateway for Paid Membership Pro plugin, you can contribute this back to the code. Please read our [contributor guidelines](https://github.com/PaystackHQ/wordpress-payment-forms-for-paystack/blob/master/.github/CONTRIBUTING.md) for more information how you can do this.
+## Contributing
+
+We welcome contributions to improve this gateway. Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This plugin is licensed under the GPLv3 or later. For more information, see the [LICENSE](LICENSE) file.
+
+## Changelog
+
+For a detailed list of changes, please see the [CHANGELOG.md](CHANGELOG.md) file.
