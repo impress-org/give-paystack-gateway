@@ -26,7 +26,7 @@ define('GIVE_PAYSTACK_NAME', 'Give - Paystack Gateway');
 
 // Versions
 define('GIVE_PAYSTACK_VERSION', '3.0.0');
-define('GIVE_PAYSTACK_MIN_GIVE_VERSION', '4.7.0');
+define('GIVE_PAYSTACK_MIN_GIVE_VERSION', '4.10.0');
 
 // Add-on paths
 define('GIVE_PAYSTACK_FILE', __FILE__);
