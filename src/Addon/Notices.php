@@ -22,7 +22,7 @@ class Notices
             [
                 'id' => 'give-paystack-gateway-activation-error',
                 'type' => 'error',
-                'description' => View::load('admin/notices/give-version-error'),
+                'description' => View::load('notices/give-version-error'),
                 'show' => true,
             ]
         );
@@ -36,6 +36,6 @@ class Notices
      */
     public static function giveInactive()
     {
-        echo View::load('admin/notices/give-inactive');
+        echo View::load('notices/give-inactive');
     }
 }
