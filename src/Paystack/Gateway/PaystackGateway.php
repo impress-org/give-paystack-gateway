@@ -247,6 +247,16 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
                 'givewp-success-url' => $gatewayData['successUrl']
             ]
         );
+        $metadata = [
+            'plugin' => 'GiveWP',
+            'custom_fields' => [
+                [
+                    'display_name' => 'Plugin',
+                    'variable_name' => 'plugin',
+                    'value' => 'GiveWP'
+                ],
+            ]
+        ];
 
         $url = 'https://api.paystack.co/transaction/initialize';
         $body = [
@@ -256,6 +266,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
             'reference' => $reference,
             'callback_url' => $redirectUrl,
             'metadata' => apply_filters('givewp_paystack_transaction_initialization_metadata', [
+                'plugin' => 'GiveWP',
                 'custom_fields' => [
                     [
                         'display_name' => 'Plugin',
