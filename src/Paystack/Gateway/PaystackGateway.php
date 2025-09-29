@@ -72,12 +72,23 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
     }
 
     /**
+     * @since 3.0.0
      * @inheritDoc
      */
     public function getLegacyFormFieldMarkup(int $formId, array $args): string
     {
+        $billingFieldsEnabled = give_get_option('paystack_billing_details', 'disabled');
+
+        if ($billingFieldsEnabled === 'enabled') {
+            //Add Address Fields if user has option enabled
+            do_action('give_after_cc_fields', $formId, $args);
+        } else {
+            //Remove Address Fields if user has option enabled
+            remove_action('give_after_cc_fields', 'give_default_cc_address_fields');
+        }
+
         return sprintf(
-            '<div style="text-align: center;">
+            '<div style="text-align: center; %s">
                 <img src="%s" alt="Paystack" style="max-width: 200px;" />
                 <br />
                 <br />
@@ -88,6 +99,7 @@ class PaystackGateway extends PaymentGateway implements WebhookNotificationsList
                     <strong>%s</strong> %s
                 </p>
             </div>',
+            $billingFieldsEnabled === 'enabled' ? 'padding-top: 1rem;' : '',
             esc_url(GIVE_PAYSTACK_URL . 'src/Paystack/Gateway/resources/images/logo.png'),
             esc_html__('Make your donation quickly and securely with Paystack', 'give-paystack'),
             esc_html__('How it works:', 'give-paystack'),
