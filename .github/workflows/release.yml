@@ -1,4 +1,4 @@
-name: Release to GiveWP.com
+name: Release to WordPress.org
 
 on:
     release:
@@ -6,8 +6,12 @@ on:
 
 jobs:
     build:
-        uses: impress-org/givewp-github-actions/.github/workflows/givewp-release.yml@master
+        uses: impress-org/givewp-github-actions/.github/workflows/wp-org-release.yml@master
         with:
-            plugin_slug: give-paystack-gateway
+            wp_org_slug: paystack-for-give
             zip_name: give-paystack-gateway
-        secrets: inherit
+            text_domain: give-paystack-gateway
+        secrets:
+            SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+            SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+            SLACK_ANNOUNCEMENT_WEBHOOK: ${{ secrets.SLACK_ANNOUNCEMENT_WEBHOOK }}
